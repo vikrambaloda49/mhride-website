@@ -14,7 +14,6 @@ const Hero: React.FC = () => {
 
   // Interactive phone states
   const [currentTime, setCurrentTime] = useState('9:41');
-  const [selectedLocation, setSelectedLocation] = useState('home');
   const [isBookingActive, setIsBookingActive] = useState(false);
 
   useEffect(() => {
@@ -54,56 +53,53 @@ const Hero: React.FC = () => {
     }
   };
 
-const handleBookRide = () => {
-  setIsBookingActive(true);
-  setTimeout(() => {
-    setIsBookingActive(false);
-  }, 2000);
+  const handleBookRide = () => {
+    setIsBookingActive(true);
+    setTimeout(() => {
+      setIsBookingActive(false);
+    }, 2000);
 
-  // Deep link schemes (must be registered in your mobile apps)
-  const androidScheme = "mhride://";
-  const iosScheme = "mhride://";
+    // Deep link schemes (must be registered in your mobile apps)
+    const androidScheme = "mhride://";
+    const iosScheme = "mhride://";
 
-  // Store links
-  const playStoreUrl =
-    "https://play.google.com/store/apps/details?id=com.app.mhridecustomer&hl=en";
-  const appStoreUrl =
-    "https://apps.apple.com/ca/app/mhride/id6739747337";
+    // Store links
+    const playStoreUrl =
+      "https://play.google.com/store/apps/details?id=com.app.mhridecustomer&hl=en";
+    const appStoreUrl =
+      "https://apps.apple.com/ca/app/mhride/id6739747337";
 
-  // Detect user agent safely
-  const userAgent =
-    typeof navigator !== "undefined" ? navigator.userAgent || navigator.vendor : "";
+    // Detect user agent safely
+    const userAgent =
+      typeof navigator !== "undefined" ? navigator.userAgent || navigator.vendor : "";
 
-  // Custom types for window properties TS doesn’t recognize
-  const win = window as Window & { opera?: unknown; MSStream?: unknown };
+    // Custom types for window properties TS doesn't recognize
+    const win = window as Window & { opera?: unknown; MSStream?: unknown };
 
-  // ⏳ Wait 3s before running navigation logic
-  setTimeout(() => {
-    if (/android/i.test(userAgent)) {
-      // Try opening the Android app
-      window.location.href = androidScheme;
+    // ⏳ Wait 2s before running navigation logic
+    setTimeout(() => {
+      if (/android/i.test(userAgent)) {
+        // Try opening the Android app
+        window.location.href = androidScheme;
 
-      // Fallback after 1.5s if app not installed
-      setTimeout(() => {
-        window.location.href = playStoreUrl;
-      }, 1500);
-    } else if (/iPad|iPhone|iPod/.test(userAgent) && !win.MSStream) {
-      // Try opening the iOS app
-      window.location.href = iosScheme;
+        // Fallback after 1.5s if app not installed
+        setTimeout(() => {
+          window.location.href = playStoreUrl;
+        }, 1500);
+      } else if (/iPad|iPhone|iPod/.test(userAgent) && !win.MSStream) {
+        // Try opening the iOS app
+        window.location.href = iosScheme;
 
-      // Fallback after 1.5s
-      setTimeout(() => {
+        // Fallback after 1.5s
+        setTimeout(() => {
+          window.location.href = appStoreUrl;
+        }, 1500);
+      } else {
+        // Default (desktop / unknown)
         window.location.href = appStoreUrl;
-      }, 1500);
-    } else {
-      // Default (desktop / unknown)
-      window.location.href = appStoreUrl;
-    }
-  }, 2000); // <-- 2 second delay
-};
-
-
-
+      }
+    }, 2000);
+  };
 
   return (
     <div 
@@ -112,8 +108,6 @@ const handleBookRide = () => {
     >
       {/* Enhanced background with gradient */}
       <div className="absolute inset-0">
-
-        
         {/* Animated background elements */}
         <motion.div
           className="absolute top-1/4 right-1/4 w-96 h-96 bg-red-500/5 rounded-full blur-3xl"
@@ -279,7 +273,7 @@ const handleBookRide = () => {
             </motion.div>
           </motion.div>
 
-          {/* Right Content - iPhone 16 with Dynamic Island - FIXED LAYOUT */}
+          {/* Right Content - iPhone 16 with New UI */}
           <motion.div
             variants={itemVariants}
             className="flex justify-center lg:justify-end"
@@ -295,7 +289,7 @@ const handleBookRide = () => {
                   
                   {/* Dynamic Island */}
                   <motion.div
-                    className="absolute top-4 left-1/2 transform -translate-x-1/2 w-32 h-8 bg-black rounded-full z-20 flex items-center justify-center"
+                    className="absolute top-4 left-1/2 transform -translate-x-1/2 w-32 h-8 bg-black rounded-full z-30 flex items-center justify-center"
                     animate={{
                       width: isBookingActive ? 200 : 128,
                     }}
@@ -308,7 +302,7 @@ const handleBookRide = () => {
                       {isBookingActive ? (
                         <>
                           <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                          <span>Booking ride...</span>
+                          <span>Opening app...</span>
                         </>
                       ) : (
                         <>
@@ -319,14 +313,13 @@ const handleBookRide = () => {
                     </motion.div>
                   </motion.div>
 
-                  {/* Screen Content - Fixed container with proper overflow */}
-                  <div className="absolute inset-0 bg-gradient-to-b from-white via-gray-50 to-white rounded-[3rem] overflow-hidden">
+                  {/* Screen Content - Full screen map with bottom sheet */}
+                  <div className="absolute inset-0 rounded-[3rem] overflow-hidden">
                     
-                    {/* Scrollable content container */}
-                    <div className="h-full overflow-y-auto scrollbar-hide">
-                      
+                    {/* Full Screen Map Background */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-gray-100 via-gray-50 to-blue-50">
                       {/* Status Bar */}
-                      <div className="flex justify-between items-center px-6 pt-12 pb-2">
+                      <div className="absolute top-0 left-0 right-0 flex justify-between items-center px-6 pt-12 pb-2 z-30">
                         <motion.span 
                           className="text-sm font-bold text-gray-900"
                           key={currentTime}
@@ -340,151 +333,102 @@ const handleBookRide = () => {
                           <div className="flex gap-1">
                             <motion.div className="w-1 h-1 bg-gray-900 rounded-full" animate={{ opacity: [0.3, 1, 0.3] }} transition={{ duration: 2, repeat: Infinity }} />
                             <motion.div className="w-1 h-1 bg-gray-900 rounded-full" animate={{ opacity: [0.3, 1, 0.3] }} transition={{ duration: 2, repeat: Infinity, delay: 0.3 }} />
-                            <motion.div className="w-1 h-1 bg-red-600 rounded-full" animate={{ opacity: [0.3, 1, 0.3] }} transition={{ duration: 2, repeat: Infinity, delay: 0.6 }} />
+                            <motion.div className="w-1 h-1 bg-gray-900 rounded-full" animate={{ opacity: [0.3, 1, 0.3] }} transition={{ duration: 2, repeat: Infinity, delay: 0.6 }} />
                           </div>
-                          <div className="ml-2 w-6 h-3 border border-gray-400 rounded-md">
+                          <div className="ml-2 w-6 h-3 border border-gray-900 rounded-sm">
                             <motion.div 
-                              className="h-full bg-green-500 rounded-sm"
-                              animate={{ width: ['60%', '80%', '60%'] }}
+                              className="h-full bg-black rounded-sm"
+                              animate={{ width: ['70%', '90%', '70%'] }}
                               transition={{ duration: 4, repeat: Infinity }}
                             />
                           </div>
                         </div>
                       </div>
-                      
-                      {/* App Header */}
-                      <div className="px-6 py-3">
-                        <div className="flex items-center justify-between mb-2">
-                          <motion.h3 
-                            className="text-gray-900 text-xl font-medium "
-                            animate={{ scale: [1, 1.02, 1] }}
-                            transition={{ duration: 2, repeat: Infinity }}
-                          >
-                            Book a Ride
-                          </motion.h3>
-                          <motion.div 
-                            className="w-8 h-8 bg-gradient-to-br from-red-600 to-red-700 rounded-xl flex items-center justify-center shadow-lg"
-                            whileHover={{ scale: 1.1, rotate: 10 }}
-                            whileTap={{ scale: 0.9 }}
-                          >
-                            <Navigation className="w-4 h-4 text-white" />
-                          </motion.div>
-                        </div>
+
+                      {/* Map visualization */}
+                      <svg className="w-full h-full" viewBox="0 0 320 640" xmlns="http://www.w3.org/2000/svg">
+                        {/* Streets */}
+                        <line x1="0" y1="150" x2="320" y2="150" stroke="#d1d5db" strokeWidth="2" />
+                        <line x1="0" y1="220" x2="320" y2="220" stroke="#d1d5db" strokeWidth="2" />
+                        <line x1="0" y1="290" x2="320" y2="290" stroke="#d1d5db" strokeWidth="2" />
+                        <line x1="80" y1="0" x2="80" y2="400" stroke="#d1d5db" strokeWidth="2" />
+                        <line x1="160" y1="0" x2="160" y2="400" stroke="#d1d5db" strokeWidth="2" />
+                        <line x1="240" y1="0" x2="240" y2="400" stroke="#d1d5db" strokeWidth="2" />
                         
-                        {/* Interactive Map - Reduced height */}
+                        {/* Green spaces */}
+                        <rect x="180" y="100" width="120" height="60" fill="#d1fae5" opacity="0.6" />
+                        <rect x="20" y="310" width="80" height="80" fill="#d1fae5" opacity="0.6" />
+                        
+                        {/* Buildings/POIs */}
+                        <circle cx="120" cy="180" r="8" fill="#f97316" opacity="0.7" />
+                        <circle cx="200" cy="260" r="8" fill="#3b82f6" opacity="0.7" />
+                        <circle cx="60" cy="270" r="8" fill="#6b7280" opacity="0.7" />
+                      </svg>
+
+                      {/* Current location button */}
+                      <motion.button
+                        className="absolute bottom-[420px] right-6 w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center z-20"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <Navigation className="w-5 h-5 text-gray-700" />
+                      </motion.button>
+                    </div>
+
+                    {/* Bottom Sheet */}
+                    <motion.div 
+                      className="absolute bottom-0 left-0 right-0 bg-white rounded-t-3xl shadow-2xl z-20"
+                      initial={{ y: 100 }}
+                      animate={{ y: 0 }}
+                      transition={{ type: "spring", damping: 25 }}
+                    >
+                      {/* Handle */}
+                      <div className="flex justify-center pt-3 pb-2">
+                        <div className="w-10 h-1 bg-gray-300 rounded-full" />
+                      </div>
+
+                      {/* Content */}
+                      <div className="px-6 pb-6">
+                        {/* Title */}
+                        <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                          Hey New Customer, where to?
+                        </h2>
+
+                        {/* Search Input */}
                         <motion.div 
-                          className="h-32 bg-gradient-to-br from-blue-50 via-green-50 to-red-50 rounded-2xl flex items-center justify-center border border-gray-100 relative overflow-hidden mb-4"
-                          whileHover={{ scale: 1.02 }}
-                          transition={{ duration: 0.3 }}
+                          className="flex items-center gap-3 p-4 bg-gray-50 rounded-xl mb-4"
+                          whileHover={{ backgroundColor: '#f3f4f6' }}
                         >
-                          <div className="text-center space-y-1">
-                            <MapPin className="w-6 h-6 text-red-600 mx-auto" />
-                            <p className="text-xs text-gray-500 font-semibold">Live Tracking</p>
+                          <div className="text-gray-400">🔍</div>
+                          <input
+                            type="text"
+                            placeholder="Enter your destination"
+                            className="flex-1 bg-transparent text-gray-600 placeholder-gray-400 outline-none text-sm"
+                          />
+                        </motion.div>
+
+                        {/* Recent/Saved Location */}
+                        <motion.div 
+                          className="flex items-start gap-3 p-4 bg-white rounded-xl border border-gray-100 mb-4 cursor-pointer"
+                          whileHover={{ scale: 1.01 }}
+                          whileTap={{ scale: 0.99 }}
+                        >
+                          <div className="mt-1">
+                            <Clock className="w-5 h-5 text-gray-400" />
+                          </div>
+                          <div className="flex-1">
+                            <div className="font-semibold text-gray-900 text-sm mb-1">
+                              Walmart Photo Centre, Strachan Road
+                            </div>
+                            <div className="text-xs text-gray-500">
+                              Southeast, Medicine Hat, AB, Canada
+                            </div>
                           </div>
                         </motion.div>
-                        
-                        {/* Location Inputs - Reduced spacing */}
-                        <div className="space-y-2 mb-4">
-                          <motion.div 
-                            className={`flex items-center gap-2 p-3 rounded-xl transition-all cursor-pointer ${
-                              selectedLocation === 'current' ? 'bg-green-50 border-2 border-green-200' : 'bg-gray-50'
-                            }`}
-                            onClick={() => setSelectedLocation('current')}
-                            whileTap={{ scale: 0.98 }}
-                          >
-                            <motion.div 
-                              className="w-2 h-2 bg-green-500 rounded-full"
-                              animate={{ scale: selectedLocation === 'current' ? [1, 1.3, 1] : 1 }}
-                              transition={{ duration: 0.5, repeat: selectedLocation === 'current' ? Infinity : 0 }}
-                            />
-                            <span className="text-xs text-gray-900 font-medium">Downtown Plaza</span>
-                          </motion.div>
-                          
-                          <motion.div 
-                            className={`flex items-center gap-2 p-3 rounded-xl transition-all cursor-pointer ${
-                              selectedLocation === 'destination' ? 'bg-red-50 border-2 border-red-200' : 'bg-gray-50'
-                            }`}
-                            onClick={() => setSelectedLocation('destination')}
-                            whileTap={{ scale: 0.98 }}
-                          >
-                            <motion.div 
-                              className="w-2 h-2 bg-red-600 rounded-full"
-                              animate={{ scale: selectedLocation === 'destination' ? [1, 1.3, 1] : 1 }}
-                              transition={{ duration: 0.5, repeat: selectedLocation === 'destination' ? Infinity : 0 }}
-                            />
-                            <span className="text-xs text-gray-600">Airport Terminal</span>
-                          </motion.div>
-                        </div>
-                        
-                        {/* Quick Actions - Reduced padding */}
-                        <div className="grid grid-cols-2 gap-2 mb-2">
-                          <motion.button 
-                            className={`p-3 rounded-xl text-xs text-gray-900 font-bold transition-all ${
-                              selectedLocation === 'home' ? 'bg-blue-50 border-2 border-blue-200' : 'bg-gray-50 hover:bg-gray-100'
-                            }`}
-                            onClick={() => setSelectedLocation('home')}
-                            whileHover={{ scale: 1.02 }}
-                            whileTap={{ scale: 0.98 }}
-                          >
-                            🏠 Home
-                          </motion.button>
-                          
-                          <motion.button 
-                            className={`p-3 rounded-xl text-xs text-gray-900 font-bold transition-all ${
-                              selectedLocation === 'work' ? 'bg-purple-50 border-2 border-purple-200' : 'bg-gray-50 hover:bg-gray-100'
-                            }`}
-                            onClick={() => setSelectedLocation('work')}
-                            whileHover={{ scale: 1.02 }}
-                            whileTap={{ scale: 0.98 }}
-                          >
-                            💼 Work
-                          </motion.button>
-                        </div>
-                        
-                        {/* Ride Options - Compact */}
-                        <div className="space-y-2 mb-2">
-                          <motion.div 
-                            className="flex items-center justify-between p-3 bg-white rounded-xl border border-gray-100 shadow-sm"
-                            whileHover={{ scale: 1.01, backgroundColor: '#f9fafb' }}
-                          >
-                            <div className="flex items-center gap-2">
-                              <div className="w-6 h-6 bg-gray-100 rounded-full flex items-center justify-center text-sm">
-                                🚗
-                              </div>
-                              <div>
-                                <div className="text-xs font-bold text-gray-900">Economy</div>
-                                <div className="text-xs text-gray-500">2 min</div>
-                              </div>
-                            </div>
-                            <div className="flex items-center gap-1">
-                              <Clock className="w-3 h-3 text-gray-400" />
-                              <span className="text-xs font-bold text-gray-900">$12</span>
-                            </div>
-                          </motion.div>
-                          
-                          <motion.div 
-                            className="flex items-center justify-between p-3 bg-red-500/5 rounded-xl border border-red-500/20"
-                            whileHover={{ scale: 1.01, backgroundColor: 'rgba(239, 68, 68, 0.1)' }}
-                          >
-                            <div className="flex items-center gap-2">
-                              <div className="w-6 h-6 bg-red-500/20 rounded-full flex items-center justify-center text-sm">
-                                🚘
-                              </div>
-                              <div>
-                                <div className="text-xs font-bold text-gray-900">Premium</div>
-                                <div className="text-xs text-red-600">4 min</div>
-                              </div>
-                            </div>
-                            <div className="flex items-center gap-1">
-                              <Star className="w-3 h-3 text-yellow-500" />
-                              <span className="text-xs font-bold text-red-600">$24</span>
-                            </div>
-                          </motion.div>
-                        </div>
-                        
-                        {/* Book Button */}
+
+                        {/* Book Ride Button */}
                         <motion.button
-                          className={`w-full py-3 rounded-xl font-bold text-sm transition-all duration-300 ${
+                          className={`w-full py-4 rounded-xl font-bold text-sm transition-all duration-300 mb-4 ${
                             isBookingActive 
                               ? 'bg-green-500 text-white' 
                               : 'bg-gradient-to-r from-red-600 to-red-700 text-white hover:from-red-700 hover:to-red-800 shadow-lg hover:shadow-xl'
@@ -501,21 +445,66 @@ const handleBookRide = () => {
                               transition={{ duration: 1, repeat: Infinity }}
                             >
                               <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                              Booking...
+                              Opening App...
                             </motion.div>
                           ) : (
-                            <span>Book Premium Ride</span>
+                            <span>Book a Ride</span>
                           )}
                         </motion.button>
-                        
-                        {/* Bottom padding to account for home indicator */}
-                        <div className="h-8" />
+
+                        {/* Bottom Navigation */}
+                        <div className="flex items-center justify-around pt-6 pb-4 border-t border-gray-100">
+                          <motion.button 
+                            className="flex flex-col items-center gap-2 px-3"
+                            whileTap={{ scale: 0.95 }}
+                          >
+                            <div className="w-10 h-10 bg-red-600 rounded-xl flex items-center justify-center shadow-sm">
+                              <div className="w-5 h-5 bg-white rounded-sm" />
+                            </div>
+                            <span className="text-xs font-semibold text-red-600">Home</span>
+                          </motion.button>
+
+                          <motion.button 
+                            className="flex flex-col items-center gap-2 px-3"
+                            whileTap={{ scale: 0.95 }}
+                          >
+                            <div className="w-10 h-10 bg-gray-100 rounded-xl flex items-center justify-center">
+                              <Clock className="w-5 h-5 text-gray-500" />
+                            </div>
+                            <span className="text-xs text-gray-500">History</span>
+                          </motion.button>
+
+                          <motion.button 
+                            className="flex flex-col items-center gap-2 px-3"
+                            whileTap={{ scale: 0.95 }}
+                          >
+                            <div className="w-10 h-10 bg-gray-100 rounded-xl flex items-center justify-center text-lg">
+                              📅
+                            </div>
+                            <span className="text-xs text-gray-500">Schedule</span>
+                          </motion.button>
+
+                          <motion.button 
+                            className="flex flex-col items-center gap-2 px-3"
+                            whileTap={{ scale: 0.95 }}
+                          >
+                            <div className="w-10 h-10 bg-gray-100 rounded-xl flex items-center justify-center text-lg">
+                              👤
+                            </div>
+                            <span className="text-xs text-gray-500">Account</span>
+                          </motion.button>
+                        </div>
+
+                        {/* Home indicator */}
+                        <div className="flex justify-center pb-2">
+                          <div className="w-32 h-1 bg-black rounded-full" />
+                        </div>
                       </div>
-                    </div>
+                    </motion.div>
                   </div>
                 </div>
                 
-                {/* Home Indicator */}
+                {/* Home Indicator (outside screen) */}
                 <div className="absolute bottom-3 left-1/2 transform -translate-x-1/2 w-36 h-1 bg-white/30 rounded-full" />
               </div>
               
