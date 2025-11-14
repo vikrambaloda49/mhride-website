@@ -99,11 +99,12 @@ const [selectedTestimonial, setSelectedTestimonial] = useState<Testimonial | nul
               </div>
               <p className="text-lg text-gray-800 mb-6">“{current.testimonial}”</p>
               <div className="flex items-center justify-center gap-4">
-                <img
+                {/* <img
                   src={current.avatar}
                   alt={current.name}
                   className="w-14 h-14 rounded-full object-cover border-2 border-white shadow"
-                />
+                /> */}
+                <h1>MH</h1>
                 <div>
                   <h4 className="font-bold text-gray-900">{current.name}</h4>
                   <p className="text-sm text-gray-600">{current.company}</p>
@@ -147,11 +148,7 @@ const [selectedTestimonial, setSelectedTestimonial] = useState<Testimonial | nul
             >
               <p className="text-gray-700 text-sm mb-4 line-clamp-3">“{t.testimonial}”</p>
               <div className="flex items-center gap-3">
-                <img
-                  src={t.avatar}
-                  alt={t.name}
-                  className="w-10 h-10 rounded-full object-cover"
-                />
+                <h1>MH</h1>
                 <div>
                   <div className="font-semibold text-gray-900">{t.name}</div>
                   <div className="text-xs text-gray-500">{t.company}</div>

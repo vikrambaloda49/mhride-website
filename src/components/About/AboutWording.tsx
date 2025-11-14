@@ -45,7 +45,7 @@ const AboutWording: React.FC = () => {
             {/* Key Stats */}
             <div className="grid grid-cols-2 gap-6 py-8">
               <div className="text-center">
-                <div className="text-3xl font-bold text-red-600 mb-2">200+</div>
+                <div className="text-3xl font-bold text-red-600 mb-2">1K+</div>
                 <div className="text-sm text-gray-600">Happy Riders</div>
               </div>
               <div className="text-center">

@@ -141,7 +141,7 @@ const DownloadSection: React.FC = () => {
               >
                 <Users className="w-6 h-6 text-white" />
               </motion.div>
-              <h4 className="font-black text-gray-900 mb-2">200+ Users</h4>
+              <h4 className="font-black text-gray-900 mb-2">1K+ Users</h4>
               <p className="text-sm text-gray-600">Join our growing community</p>
             </motion.div>
 
