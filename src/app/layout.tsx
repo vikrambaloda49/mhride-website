@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "MHride | Affordable Rideshare in Medicine Hat & Area",
     description:
-      "Ride safely and affordably with MHride — Medicine Hat’s local rideshare service. Rides start at just $4.90.",
+      "Ride safely and affordably with MHride — Medicine Hat’s local rideshare service. Rides start at just $2.50.",
     url: "https://mhride.ca",
     siteName: "MHride",
     images: [
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "MHride | Affordable Rideshare in Medicine Hat & Area",
     description:
-      "Affordable rideshare in Medicine Hat, Redcliff, and Dunmore. Rides starting at just $4.90.",
+      "Affordable rideshare in Medicine Hat, Redcliff, and Dunmore. Rides starting at just $2.50.",
     images: ["/assets/logo/logo.svg"],
   },
 };

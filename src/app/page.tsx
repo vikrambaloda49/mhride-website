@@ -46,7 +46,7 @@ const page = () =>
     <>
            <SEO
         title="MHride | Affordable Rideshare in Medicine Hat & Area"
-        description="MHride is Medicine Hat’s trusted rideshare service. Affordable rides starting at just $4.90, serving Medicine Hat, Redcliff, Dunmore, and nearby areas. Fast, safe, and reliable."
+        description="MHride is Medicine Hat’s trusted rideshare service. Affordable rides starting at just $2.50, serving Medicine Hat, Redcliff, Dunmore, and nearby areas. Fast, safe, and reliable."
         url="https://mhride.ca/"
       />
     <Header/>
