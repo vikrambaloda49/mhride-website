@@ -9,9 +9,9 @@ const PrivacyPage = () => {
  return (
     <>
            <SEO
-        title="Contact MHride | Medicine Hat Rideshare"
-        description="Get in touch with MHride — Medicine Hat’s affordable rideshare service."
-        url="https://mhride.ca/contact"
+        title="Privacy Policy MHride | Medicine Hat Rideshare"
+        description="This page describes MHrides's data practices when you use Mhride app to ride and drive."
+        url="https://mhride.ca/privacy"
       />
     <Header/>
     <main>

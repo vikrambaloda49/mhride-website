@@ -15,7 +15,7 @@ export default function SEO({
   description,
   keywords = "Medicine Hat rideshare, MHride, taxi Medicine Hat, ride app, local rideshare Medicine Hat, Redcliff rides, Dunmore rides, Desert Blume transportation, affordable rides Medicine Hat",
   author = "MHride",
-  url,
+  url = 'https://mhride.ca',
   image = "https://mhride.ca/og-image.jpg",
 }: SEOProps) {
   return (
@@ -49,7 +49,7 @@ export default function SEO({
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",
-            "@type": "TaxiService",
+            "@type": "Rideshare Service",
             name: "MHride",
             image: image,
             url: url,
@@ -59,9 +59,9 @@ export default function SEO({
               "Redcliff, AB",
               "Dunmore, AB",
               "Desert Blume, AB",
+              "Alberta",
             ],
             priceRange: "$",
-            telephone: "+1-403-XXX-XXXX",
             sameAs: [
               "https://facebook.com/mhride",
               "https://instagram.com/mhride",

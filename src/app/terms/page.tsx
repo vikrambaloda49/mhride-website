@@ -9,9 +9,9 @@ const TermsPage = () => {
  return (
     <>
            <SEO
-        title="Contact MHride | Medicine Hat Rideshare"
-        description="Get in touch with MHride — Medicine Hat’s affordable rideshare service."
-        url="https://mhride.ca/contact"
+        title="Terms and Conditions MHride | Medicine Hat Rideshare"
+        description="Your access and use of the Services constitutes your agreement to be bound by these Terms, which establishes a contractual relationship between you and MHride."
+        url="https://mhride.ca/terms"
       />
     <Header/>
     <main>
