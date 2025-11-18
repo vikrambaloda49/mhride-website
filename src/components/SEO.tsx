@@ -16,6 +16,7 @@ export default function SEO({
   keywords = "Medicine Hat rideshare, MHride, taxi Medicine Hat, ride app, local rideshare Medicine Hat, Redcliff rides, Dunmore rides, Desert Blume transportation, affordable rides Medicine Hat",
   author = "MHride",
   url = 'https://mhride.ca',
+  image = "https://mhride.ca/og.svg",
 }: SEOProps) {
   return (
     <Head>
@@ -30,12 +31,14 @@ export default function SEO({
       <meta property="og:url" content={url} />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
+      <meta property="og:image" content={image} />
 
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta property="twitter:url" content={url} />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
+      <meta name="twitter:image" content={image} />
 
       {/* Canonical URL */}
       <link rel="canonical" href={url} />
@@ -48,6 +51,7 @@ export default function SEO({
             "@context": "https://schema.org",
             "@type": "Rideshare Service",
             name: "MHride",
+            image: image,
             url: url,
             description: description,
             areaServed: [
