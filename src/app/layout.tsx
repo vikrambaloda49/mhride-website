@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     siteName: "MHride",
     images: [
       {
-        url: "/assets/logo/logo.svg",
+        url: "/assets/logo/icon.svg",
         width: 512,
         height: 512,
         alt: "MHride Logo",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     title: "MHride | Affordable Rideshare in Medicine Hat & Area",
     description:
       "Affordable rideshare in Medicine Hat, Redcliff, and Dunmore. Rides starting at just $2.50.",
-    images: ["/assets/logo/logo.svg"],
+    images: ["/assets/logo/icon.svg"],
   },
 };
 
