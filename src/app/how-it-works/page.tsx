@@ -10,7 +10,7 @@ const HowitWorksPage = () =>
   return (
     <>
            <SEO
-        title="How it MHride | MHride Medicine Hat Rideshare Service"
+        title="How MHride Works | MHride Medicine Hat Rideshare Service"
         description="How MHride works? — Medicine Hat’s affordable rideshare service."
         url="https://mhride.ca/how-it-works"
       />
